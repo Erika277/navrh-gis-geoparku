@@ -1,0 +1,1324 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/MarkerCluster.css">
+        <link rel="stylesheet" href="css/MarkerCluster.Default.css">
+        <link rel="stylesheet" href="css/leaflet-control-geocoder.Geocoder.css">
+        <style>
+        #map {
+            width: 1383px;
+            height: 788px;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet.wms.js"></script>
+        <script src="js/leaflet-control-geocoder.Geocoder.js"></script>
+        <script src="js/leaflet.markercluster.js"></script>
+        <script src="data/povrchovtechnickabanskobjekty_2.js"></script>
+        <script src="data/Atraktivitageoturizmu2_3.js"></script>
+        <script src="data/Atraktivitageoturizmu_4.js"></script>
+        <script src="data/mzeagalrie2_5.js"></script>
+        <script src="data/tlne_6.js"></script>
+        <script src="data/prrodnrezervciaaprrodnpamiatka_7.js"></script>
+        <script src="data/vyhliadky_8.js"></script>
+        <script src="data/piargskyvodohospodrskychodnk_9.js"></script>
+        <script src="data/piargskyvodohospodrskychodnkzastvky_10.js"></script>
+        <script src="data/hranicaBgeoparku_11.js"></script>
+        <script src="data/chodnkoekolgipiargskychtajchov_12.js"></script>
+        <script src="data/piargskychodnkzastvky_13.js"></script>
+        <script src="data/hradzmokkatiehradisko_14.js"></script>
+        <script src="data/parkoviskparkovacieplochy_15.js"></script>
+        <script src="data/mzeagalrie_16.js"></script>
+        <script src="data/ubytovanie_17.js"></script>
+        <script src="data/chodnkoekolgiipiargskychtajchov_18.js"></script>
+        <script src="data/piargskychodnk_19.js"></script>
+        <script src="data/Tajchy2_20.js"></script>
+        <script src="data/stravovanie_21.js"></script>
+        <script src="data/achty_22.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:28, minZoom:1
+        }).fitBounds([[48.275568218336,18.506571965643076],[48.63611611507735,19.461771366017977]]);
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+        }
+        map.createPane('pane_AM250_0');
+        map.getPane('pane_AM250_0').style.zIndex = 400;
+        var layer_AM250_0 = L.WMS.layer("https://zbgisws.skgeodesy.sk/amsr_wms/service.svc/get", "1", {
+            pane: 'pane_AM250_0',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            attribution: '',
+        });
+        map.addLayer(layer_AM250_0);
+        map.createPane('pane_Obec_1');
+        map.getPane('pane_Obec_1').style.zIndex = 401;
+        var layer_Obec_1 = L.WMS.layer("https://zbgisws.skgeodesy.sk/zbgis_administrativne_hranice_wms_featureinfo/service.svc/get", "0", {
+            pane: 'pane_Obec_1',
+            format: 'image/png',
+            uppercase: true,
+            transparent: true,
+            continuousWorld : true,
+            tiled: true,
+            info_format: 'text/html',
+            opacity: 1,
+            attribution: '',
+        });
+        map.addLayer(layer_Obec_1);
+        function pop_povrchovtechnickabanskobjekty_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Foto'] !== null ? autolinker.link(feature.properties['Foto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_povrchovtechnickabanskobjekty_2_0() {
+            return {
+                pane: 'pane_povrchovtechnickabanskobjekty_2',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(125,139,143,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_povrchovtechnickabanskobjekty_2');
+        map.getPane('pane_povrchovtechnickabanskobjekty_2').style.zIndex = 402;
+        map.getPane('pane_povrchovtechnickabanskobjekty_2').style['mix-blend-mode'] = 'normal';
+        var layer_povrchovtechnickabanskobjekty_2 = new L.geoJson(json_povrchovtechnickabanskobjekty_2, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_povrchovtechnickabanskobjekty_2',
+            layerName: 'layer_povrchovtechnickabanskobjekty_2',
+            pane: 'pane_povrchovtechnickabanskobjekty_2',
+            onEachFeature: pop_povrchovtechnickabanskobjekty_2,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_povrchovtechnickabanskobjekty_2_0(feature));
+            },
+        });
+        var cluster_povrchovtechnickabanskobjekty_2 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_povrchovtechnickabanskobjekty_2.addLayer(layer_povrchovtechnickabanskobjekty_2);
+
+        bounds_group.addLayer(layer_povrchovtechnickabanskobjekty_2);
+        cluster_povrchovtechnickabanskobjekty_2.addTo(map);
+        function pop_Atraktivitageoturizmu2_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Atraktivita geoturizmu'] !== null ? autolinker.link(feature.properties['Atraktivita geoturizmu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Atraktivitageoturizmu2_3_0() {
+            return {
+                pane: 'pane_Atraktivitageoturizmu2_3',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Atraktivitageoturizmu2_3');
+        map.getPane('pane_Atraktivitageoturizmu2_3').style.zIndex = 403;
+        map.getPane('pane_Atraktivitageoturizmu2_3').style['mix-blend-mode'] = 'normal';
+        var layer_Atraktivitageoturizmu2_3 = new L.geoJson(json_Atraktivitageoturizmu2_3, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Atraktivitageoturizmu2_3',
+            layerName: 'layer_Atraktivitageoturizmu2_3',
+            pane: 'pane_Atraktivitageoturizmu2_3',
+            onEachFeature: pop_Atraktivitageoturizmu2_3,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Atraktivitageoturizmu2_3_0(feature));
+            },
+        });
+        var cluster_Atraktivitageoturizmu2_3 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_Atraktivitageoturizmu2_3.addLayer(layer_Atraktivitageoturizmu2_3);
+
+        bounds_group.addLayer(layer_Atraktivitageoturizmu2_3);
+        cluster_Atraktivitageoturizmu2_3.addTo(map);
+        function pop_Atraktivitageoturizmu_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Atraktivita geoturizmu'] !== null ? autolinker.link(feature.properties['Atraktivita geoturizmu'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Atraktivitageoturizmu_4_0() {
+            return {
+                pane: 'pane_Atraktivitageoturizmu_4',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(164,113,88,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Atraktivitageoturizmu_4');
+        map.getPane('pane_Atraktivitageoturizmu_4').style.zIndex = 404;
+        map.getPane('pane_Atraktivitageoturizmu_4').style['mix-blend-mode'] = 'normal';
+        var layer_Atraktivitageoturizmu_4 = new L.geoJson(json_Atraktivitageoturizmu_4, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Atraktivitageoturizmu_4',
+            layerName: 'layer_Atraktivitageoturizmu_4',
+            pane: 'pane_Atraktivitageoturizmu_4',
+            onEachFeature: pop_Atraktivitageoturizmu_4,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_Atraktivitageoturizmu_4_0(feature));
+            },
+        });
+        var cluster_Atraktivitageoturizmu_4 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_Atraktivitageoturizmu_4.addLayer(layer_Atraktivitageoturizmu_4);
+
+        bounds_group.addLayer(layer_Atraktivitageoturizmu_4);
+        cluster_Atraktivitageoturizmu_4.addTo(map);
+        function pop_mzeagalrie2_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,_1'] !== null ? autolinker.link(feature.properties['y,_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Múzeá a galérie'] !== null ? autolinker.link(feature.properties['Múzeá a galérie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_mzeagalrie2_5_0() {
+            return {
+                pane: 'pane_mzeagalrie2_5',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_mzeagalrie2_5');
+        map.getPane('pane_mzeagalrie2_5').style.zIndex = 405;
+        map.getPane('pane_mzeagalrie2_5').style['mix-blend-mode'] = 'normal';
+        var layer_mzeagalrie2_5 = new L.geoJson(json_mzeagalrie2_5, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_mzeagalrie2_5',
+            layerName: 'layer_mzeagalrie2_5',
+            pane: 'pane_mzeagalrie2_5',
+            onEachFeature: pop_mzeagalrie2_5,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_mzeagalrie2_5_0(feature));
+            },
+        });
+        var cluster_mzeagalrie2_5 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_mzeagalrie2_5.addLayer(layer_mzeagalrie2_5);
+
+        bounds_group.addLayer(layer_mzeagalrie2_5);
+        cluster_mzeagalrie2_5.addTo(map);
+        function pop_tlne_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Štôlne'] !== null ? autolinker.link(feature.properties['Štôlne'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Foto'] !== null ? '<img src="images/' + String(feature.properties['Foto']).replace(/[\\\/:]/g, '_').trim() + '">' : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_tlne_6_0() {
+            return {
+                pane: 'pane_tlne_6',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/red-marker.svg',
+            iconSize: [15.2, 15.2]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_tlne_6');
+        map.getPane('pane_tlne_6').style.zIndex = 406;
+        map.getPane('pane_tlne_6').style['mix-blend-mode'] = 'normal';
+        var layer_tlne_6 = new L.geoJson(json_tlne_6, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_tlne_6',
+            layerName: 'layer_tlne_6',
+            pane: 'pane_tlne_6',
+            onEachFeature: pop_tlne_6,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_tlne_6_0(feature));
+            },
+        });
+        var cluster_tlne_6 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_tlne_6.addLayer(layer_tlne_6);
+
+        bounds_group.addLayer(layer_tlne_6);
+        cluster_tlne_6.addTo(map);
+        function pop_prrodnrezervciaaprrodnpamiatka_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_prrodnrezervciaaprrodnpamiatka_7_0() {
+            return {
+                pane: 'pane_prrodnrezervciaaprrodnpamiatka_7',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,180,60,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_prrodnrezervciaaprrodnpamiatka_7');
+        map.getPane('pane_prrodnrezervciaaprrodnpamiatka_7').style.zIndex = 407;
+        map.getPane('pane_prrodnrezervciaaprrodnpamiatka_7').style['mix-blend-mode'] = 'normal';
+        var layer_prrodnrezervciaaprrodnpamiatka_7 = new L.geoJson(json_prrodnrezervciaaprrodnpamiatka_7, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_prrodnrezervciaaprrodnpamiatka_7',
+            layerName: 'layer_prrodnrezervciaaprrodnpamiatka_7',
+            pane: 'pane_prrodnrezervciaaprrodnpamiatka_7',
+            onEachFeature: pop_prrodnrezervciaaprrodnpamiatka_7,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_prrodnrezervciaaprrodnpamiatka_7_0(feature));
+            },
+        });
+        var cluster_prrodnrezervciaaprrodnpamiatka_7 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_prrodnrezervciaaprrodnpamiatka_7.addLayer(layer_prrodnrezervciaaprrodnpamiatka_7);
+
+        bounds_group.addLayer(layer_prrodnrezervciaaprrodnpamiatka_7);
+        cluster_prrodnrezervciaaprrodnpamiatka_7.addTo(map);
+        function pop_vyhliadky_8(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Foto'] !== null ? autolinker.link(feature.properties['Foto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_vyhliadky_8_0() {
+            return {
+                pane: 'pane_vyhliadky_8',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(133,182,111,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_vyhliadky_8');
+        map.getPane('pane_vyhliadky_8').style.zIndex = 408;
+        map.getPane('pane_vyhliadky_8').style['mix-blend-mode'] = 'normal';
+        var layer_vyhliadky_8 = new L.geoJson(json_vyhliadky_8, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_vyhliadky_8',
+            layerName: 'layer_vyhliadky_8',
+            pane: 'pane_vyhliadky_8',
+            onEachFeature: pop_vyhliadky_8,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_vyhliadky_8_0(feature));
+            },
+        });
+        var cluster_vyhliadky_8 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_vyhliadky_8.addLayer(layer_vyhliadky_8);
+
+        bounds_group.addLayer(layer_vyhliadky_8);
+        cluster_vyhliadky_8.addTo(map);
+        function pop_piargskyvodohospodrskychodnk_9(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['chodnik'] !== null ? autolinker.link(feature.properties['chodnik'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_piargskyvodohospodrskychodnk_9_0() {
+            return {
+                pane: 'pane_piargskyvodohospodrskychodnk_9',
+                opacity: 1,
+                color: 'rgba(145,82,45,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_piargskyvodohospodrskychodnk_9');
+        map.getPane('pane_piargskyvodohospodrskychodnk_9').style.zIndex = 409;
+        map.getPane('pane_piargskyvodohospodrskychodnk_9').style['mix-blend-mode'] = 'normal';
+        var layer_piargskyvodohospodrskychodnk_9 = new L.geoJson(json_piargskyvodohospodrskychodnk_9, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_piargskyvodohospodrskychodnk_9',
+            layerName: 'layer_piargskyvodohospodrskychodnk_9',
+            pane: 'pane_piargskyvodohospodrskychodnk_9',
+            onEachFeature: pop_piargskyvodohospodrskychodnk_9,
+            style: style_piargskyvodohospodrskychodnk_9_0,
+        });
+        bounds_group.addLayer(layer_piargskyvodohospodrskychodnk_9);
+        map.addLayer(layer_piargskyvodohospodrskychodnk_9);
+        function pop_piargskyvodohospodrskychodnkzastvky_10(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['zastavky'] !== null ? autolinker.link(feature.properties['zastavky'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_piargskyvodohospodrskychodnkzastvky_10_0() {
+            return {
+                pane: 'pane_piargskyvodohospodrskychodnkzastvky_10',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(190,178,151,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_piargskyvodohospodrskychodnkzastvky_10');
+        map.getPane('pane_piargskyvodohospodrskychodnkzastvky_10').style.zIndex = 410;
+        map.getPane('pane_piargskyvodohospodrskychodnkzastvky_10').style['mix-blend-mode'] = 'normal';
+        var layer_piargskyvodohospodrskychodnkzastvky_10 = new L.geoJson(json_piargskyvodohospodrskychodnkzastvky_10, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_piargskyvodohospodrskychodnkzastvky_10',
+            layerName: 'layer_piargskyvodohospodrskychodnkzastvky_10',
+            pane: 'pane_piargskyvodohospodrskychodnkzastvky_10',
+            onEachFeature: pop_piargskyvodohospodrskychodnkzastvky_10,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_piargskyvodohospodrskychodnkzastvky_10_0(feature));
+            },
+        });
+        var cluster_piargskyvodohospodrskychodnkzastvky_10 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_piargskyvodohospodrskychodnkzastvky_10.addLayer(layer_piargskyvodohospodrskychodnkzastvky_10);
+
+        bounds_group.addLayer(layer_piargskyvodohospodrskychodnkzastvky_10);
+        cluster_piargskyvodohospodrskychodnkzastvky_10.addTo(map);
+        function pop_hranicaBgeoparku_11(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['hranica b�'] !== null ? autolinker.link(feature.properties['hranica b�'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_hranicaBgeoparku_11_0() {
+            return {
+                pane: 'pane_hranicaBgeoparku_11',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 3.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(229,182,54,0.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_hranicaBgeoparku_11');
+        map.getPane('pane_hranicaBgeoparku_11').style.zIndex = 411;
+        map.getPane('pane_hranicaBgeoparku_11').style['mix-blend-mode'] = 'normal';
+        var layer_hranicaBgeoparku_11 = new L.geoJson(json_hranicaBgeoparku_11, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_hranicaBgeoparku_11',
+            layerName: 'layer_hranicaBgeoparku_11',
+            pane: 'pane_hranicaBgeoparku_11',
+            onEachFeature: pop_hranicaBgeoparku_11,
+            style: style_hranicaBgeoparku_11_0,
+        });
+        bounds_group.addLayer(layer_hranicaBgeoparku_11);
+        map.addLayer(layer_hranicaBgeoparku_11);
+        function pop_chodnkoekolgipiargskychtajchov_12(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['č.'] !== null ? autolinker.link(feature.properties['č.'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_chodnkoekolgipiargskychtajchov_12_0() {
+            return {
+                pane: 'pane_chodnkoekolgipiargskychtajchov_12',
+                opacity: 1,
+                color: 'rgba(72,123,182,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_chodnkoekolgipiargskychtajchov_12');
+        map.getPane('pane_chodnkoekolgipiargskychtajchov_12').style.zIndex = 412;
+        map.getPane('pane_chodnkoekolgipiargskychtajchov_12').style['mix-blend-mode'] = 'normal';
+        var layer_chodnkoekolgipiargskychtajchov_12 = new L.geoJson(json_chodnkoekolgipiargskychtajchov_12, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_chodnkoekolgipiargskychtajchov_12',
+            layerName: 'layer_chodnkoekolgipiargskychtajchov_12',
+            pane: 'pane_chodnkoekolgipiargskychtajchov_12',
+            onEachFeature: pop_chodnkoekolgipiargskychtajchov_12,
+            style: style_chodnkoekolgipiargskychtajchov_12_0,
+        });
+        bounds_group.addLayer(layer_chodnkoekolgipiargskychtajchov_12);
+        map.addLayer(layer_chodnkoekolgipiargskychtajchov_12);
+        function pop_piargskychodnkzastvky_13(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['piargsky'] !== null ? autolinker.link(feature.properties['piargsky'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_piargskychodnkzastvky_13_0() {
+            return {
+                pane: 'pane_piargskychodnkzastvky_13',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(227,26,28,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_piargskychodnkzastvky_13');
+        map.getPane('pane_piargskychodnkzastvky_13').style.zIndex = 413;
+        map.getPane('pane_piargskychodnkzastvky_13').style['mix-blend-mode'] = 'normal';
+        var layer_piargskychodnkzastvky_13 = new L.geoJson(json_piargskychodnkzastvky_13, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_piargskychodnkzastvky_13',
+            layerName: 'layer_piargskychodnkzastvky_13',
+            pane: 'pane_piargskychodnkzastvky_13',
+            onEachFeature: pop_piargskychodnkzastvky_13,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_piargskychodnkzastvky_13_0(feature));
+            },
+        });
+        var cluster_piargskychodnkzastvky_13 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_piargskychodnkzastvky_13.addLayer(layer_piargskychodnkzastvky_13);
+
+        bounds_group.addLayer(layer_piargskychodnkzastvky_13);
+        cluster_piargskychodnkzastvky_13.addTo(map);
+        function pop_hradzmokkatiehradisko_14(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Foto'] !== null ? autolinker.link(feature.properties['Foto'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_hradzmokkatiehradisko_14_0() {
+            return {
+                pane: 'pane_hradzmokkatiehradisko_14',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/tourist_beach.svg',
+            iconSize: [11.399999999999999, 11.399999999999999]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_hradzmokkatiehradisko_14');
+        map.getPane('pane_hradzmokkatiehradisko_14').style.zIndex = 414;
+        map.getPane('pane_hradzmokkatiehradisko_14').style['mix-blend-mode'] = 'normal';
+        var layer_hradzmokkatiehradisko_14 = new L.geoJson(json_hradzmokkatiehradisko_14, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_hradzmokkatiehradisko_14',
+            layerName: 'layer_hradzmokkatiehradisko_14',
+            pane: 'pane_hradzmokkatiehradisko_14',
+            onEachFeature: pop_hradzmokkatiehradisko_14,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_hradzmokkatiehradisko_14_0(feature));
+            },
+        });
+        var cluster_hradzmokkatiehradisko_14 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_hradzmokkatiehradisko_14.addLayer(layer_hradzmokkatiehradisko_14);
+
+        bounds_group.addLayer(layer_hradzmokkatiehradisko_14);
+        cluster_hradzmokkatiehradisko_14.addTo(map);
+        function pop_parkoviskparkovacieplochy_15(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_parkoviskparkovacieplochy_15_0() {
+            return {
+                pane: 'pane_parkoviskparkovacieplochy_15',
+                interactive: true,
+            }
+        }
+        function style_parkoviskparkovacieplochy_15_1() {
+            return {
+                pane: 'pane_parkoviskparkovacieplochy_15',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/parking.svg',
+            iconSize: [11.399999999999999, 11.399999999999999]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_parkoviskparkovacieplochy_15');
+        map.getPane('pane_parkoviskparkovacieplochy_15').style.zIndex = 415;
+        map.getPane('pane_parkoviskparkovacieplochy_15').style['mix-blend-mode'] = 'normal';
+        var layer_parkoviskparkovacieplochy_15 = new L.geoJson.multiStyle(json_parkoviskparkovacieplochy_15, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_parkoviskparkovacieplochy_15',
+            layerName: 'layer_parkoviskparkovacieplochy_15',
+            pane: 'pane_parkoviskparkovacieplochy_15',
+            onEachFeature: pop_parkoviskparkovacieplochy_15,
+            pointToLayers: [function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_parkoviskparkovacieplochy_15_0(feature));
+            },function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_parkoviskparkovacieplochy_15_1(feature));
+            },
+        ]});
+        var cluster_parkoviskparkovacieplochy_15 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_parkoviskparkovacieplochy_15.addLayer(layer_parkoviskparkovacieplochy_15);
+
+        bounds_group.addLayer(layer_parkoviskparkovacieplochy_15);
+        cluster_parkoviskparkovacieplochy_15.addTo(map);
+        function pop_mzeagalrie_16(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,_1'] !== null ? autolinker.link(feature.properties['y,_1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Múzeá a galérie'] !== null ? autolinker.link(feature.properties['Múzeá a galérie'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_mzeagalrie_16_0() {
+            return {
+                pane: 'pane_mzeagalrie_16',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_mzeagalrie_16');
+        map.getPane('pane_mzeagalrie_16').style.zIndex = 416;
+        map.getPane('pane_mzeagalrie_16').style['mix-blend-mode'] = 'normal';
+        var layer_mzeagalrie_16 = new L.geoJson(json_mzeagalrie_16, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_mzeagalrie_16',
+            layerName: 'layer_mzeagalrie_16',
+            pane: 'pane_mzeagalrie_16',
+            onEachFeature: pop_mzeagalrie_16,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_mzeagalrie_16_0(feature));
+            },
+        });
+        var cluster_mzeagalrie_16 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_mzeagalrie_16.addLayer(layer_mzeagalrie_16);
+
+        bounds_group.addLayer(layer_mzeagalrie_16);
+        cluster_mzeagalrie_16.addTo(map);
+        function pop_ubytovanie_17(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_ubytovanie_17_0() {
+            return {
+                pane: 'pane_ubytovanie_17',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/h.svg',
+            iconSize: [11.399999999999999, 11.399999999999999]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_ubytovanie_17');
+        map.getPane('pane_ubytovanie_17').style.zIndex = 417;
+        map.getPane('pane_ubytovanie_17').style['mix-blend-mode'] = 'normal';
+        var layer_ubytovanie_17 = new L.geoJson(json_ubytovanie_17, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_ubytovanie_17',
+            layerName: 'layer_ubytovanie_17',
+            pane: 'pane_ubytovanie_17',
+            onEachFeature: pop_ubytovanie_17,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_ubytovanie_17_0(feature));
+            },
+        });
+        var cluster_ubytovanie_17 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_ubytovanie_17.addLayer(layer_ubytovanie_17);
+
+        bounds_group.addLayer(layer_ubytovanie_17);
+        cluster_ubytovanie_17.addTo(map);
+        function pop_chodnkoekolgiipiargskychtajchov_18(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Zastávka'] !== null ? autolinker.link(feature.properties['Zastávka'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_chodnkoekolgiipiargskychtajchov_18_0() {
+            return {
+                pane: 'pane_chodnkoekolgiipiargskychtajchov_18',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(213,180,60,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_chodnkoekolgiipiargskychtajchov_18');
+        map.getPane('pane_chodnkoekolgiipiargskychtajchov_18').style.zIndex = 418;
+        map.getPane('pane_chodnkoekolgiipiargskychtajchov_18').style['mix-blend-mode'] = 'normal';
+        var layer_chodnkoekolgiipiargskychtajchov_18 = new L.geoJson(json_chodnkoekolgiipiargskychtajchov_18, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_chodnkoekolgiipiargskychtajchov_18',
+            layerName: 'layer_chodnkoekolgiipiargskychtajchov_18',
+            pane: 'pane_chodnkoekolgiipiargskychtajchov_18',
+            onEachFeature: pop_chodnkoekolgiipiargskychtajchov_18,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_chodnkoekolgiipiargskychtajchov_18_0(feature));
+            },
+        });
+        var cluster_chodnkoekolgiipiargskychtajchov_18 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_chodnkoekolgiipiargskychtajchov_18.addLayer(layer_chodnkoekolgiipiargskychtajchov_18);
+
+        bounds_group.addLayer(layer_chodnkoekolgiipiargskychtajchov_18);
+        cluster_chodnkoekolgiipiargskychtajchov_18.addTo(map);
+        function pop_piargskychodnk_19(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Piargsky c'] !== null ? autolinker.link(feature.properties['Piargsky c'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_piargskychodnk_19_0() {
+            return {
+                pane: 'pane_piargskychodnk_19',
+                opacity: 1,
+                color: 'rgba(141,90,153,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 2.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_piargskychodnk_19');
+        map.getPane('pane_piargskychodnk_19').style.zIndex = 419;
+        map.getPane('pane_piargskychodnk_19').style['mix-blend-mode'] = 'normal';
+        var layer_piargskychodnk_19 = new L.geoJson(json_piargskychodnk_19, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_piargskychodnk_19',
+            layerName: 'layer_piargskychodnk_19',
+            pane: 'pane_piargskychodnk_19',
+            onEachFeature: pop_piargskychodnk_19,
+            style: style_piargskychodnk_19_0,
+        });
+        bounds_group.addLayer(layer_piargskychodnk_19);
+        map.addLayer(layer_piargskychodnk_19);
+        function pop_Tajchy2_20(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Name'] !== null ? autolinker.link(feature.properties['Name'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['GPS'] !== null ? autolinker.link(feature.properties['GPS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID'] !== null ? autolinker.link(feature.properties['ID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Photo'] !== null ? autolinker.link(feature.properties['Photo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['URL'] !== null ? autolinker.link(feature.properties['URL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_Tajchy2_20_0() {
+            return {
+                pane: 'pane_Tajchy2_20',
+                opacity: 1,
+                color: 'rgba(53,121,177,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: true,
+            }
+        }
+        map.createPane('pane_Tajchy2_20');
+        map.getPane('pane_Tajchy2_20').style.zIndex = 420;
+        map.getPane('pane_Tajchy2_20').style['mix-blend-mode'] = 'normal';
+        var layer_Tajchy2_20 = new L.geoJson(json_Tajchy2_20, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_Tajchy2_20',
+            layerName: 'layer_Tajchy2_20',
+            pane: 'pane_Tajchy2_20',
+            onEachFeature: pop_Tajchy2_20,
+            style: style_Tajchy2_20_0,
+        });
+        bounds_group.addLayer(layer_Tajchy2_20);
+        map.addLayer(layer_Tajchy2_20);
+        function pop_stravovanie_21(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Info'] !== null ? autolinker.link(feature.properties['Info'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_stravovanie_21_0() {
+            return {
+                pane: 'pane_stravovanie_21',
+        rotationAngle: 0.0,
+        rotationOrigin: 'center center',
+        icon: L.icon({
+            iconUrl: 'markers/food_restaurant.svg',
+            iconSize: [12.16, 12.16]
+        }),
+                interactive: true,
+            }
+        }
+        map.createPane('pane_stravovanie_21');
+        map.getPane('pane_stravovanie_21').style.zIndex = 421;
+        map.getPane('pane_stravovanie_21').style['mix-blend-mode'] = 'normal';
+        var layer_stravovanie_21 = new L.geoJson(json_stravovanie_21, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_stravovanie_21',
+            layerName: 'layer_stravovanie_21',
+            pane: 'pane_stravovanie_21',
+            onEachFeature: pop_stravovanie_21,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.marker(latlng, style_stravovanie_21_0(feature));
+            },
+        });
+        var cluster_stravovanie_21 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_stravovanie_21.addLayer(layer_stravovanie_21);
+
+        bounds_group.addLayer(layer_stravovanie_21);
+        cluster_stravovanie_21.addTo(map);
+        function pop_achty_22(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['x,'] !== null ? autolinker.link(feature.properties['x,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['y,'] !== null ? autolinker.link(feature.properties['y,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['z,'] !== null ? autolinker.link(feature.properties['z,'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Šachty'] !== null ? autolinker.link(feature.properties['Šachty'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Číslo'] !== null ? autolinker.link(feature.properties['Číslo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_achty_22_0() {
+            return {
+                pane: 'pane_achty_22',
+                radius: 4.0,
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1,
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(232,113,141,1.0)',
+                interactive: true,
+            }
+        }
+        map.createPane('pane_achty_22');
+        map.getPane('pane_achty_22').style.zIndex = 422;
+        map.getPane('pane_achty_22').style['mix-blend-mode'] = 'normal';
+        var layer_achty_22 = new L.geoJson(json_achty_22, {
+            attribution: '',
+            interactive: true,
+            dataVar: 'json_achty_22',
+            layerName: 'layer_achty_22',
+            pane: 'pane_achty_22',
+            onEachFeature: pop_achty_22,
+            pointToLayer: function (feature, latlng) {
+                var context = {
+                    feature: feature,
+                    variables: {}
+                };
+                return L.circleMarker(latlng, style_achty_22_0(feature));
+            },
+        });
+        var cluster_achty_22 = new L.MarkerClusterGroup({showCoverageOnHover: false,
+            spiderfyDistanceMultiplier: 2});
+        cluster_achty_22.addLayer(layer_achty_22);
+
+        bounds_group.addLayer(layer_achty_22);
+        cluster_achty_22.addTo(map);
+        var osmGeocoder = new L.Control.Geocoder({
+            collapsed: true,
+            position: 'topleft',
+            text: 'Search',
+            title: 'Testing'
+        }).addTo(map);
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .className += ' fa fa-search';
+        document.getElementsByClassName('leaflet-control-geocoder-icon')[0]
+        .title += 'Search for a place';
+        setBounds();
+        var i = 0;
+        layer_Atraktivitageoturizmu2_3.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Atraktivita geoturizmu'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Atraktivita geoturizmu']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_Atraktivitageoturizmu2_3'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_piargskyvodohospodrskychodnkzastvky_10.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['zastavky'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['zastavky']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_piargskyvodohospodrskychodnkzastvky_10'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_piargskychodnkzastvky_13.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['piargsky'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['piargsky']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_piargskychodnkzastvky_13'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_mzeagalrie_16.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Múzeá a galérie'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Múzeá a galérie']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_mzeagalrie_16'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        var i = 0;
+        layer_chodnkoekolgiipiargskychtajchov_18.eachLayer(function(layer) {
+            var context = {
+                feature: layer.feature,
+                variables: {}
+            };
+            layer.bindTooltip((layer.feature.properties['Name'] !== null?String('<div style="color: #000000; font-size: 8pt; font-family: \'MS Shell Dlg 2\', sans-serif;">' + layer.feature.properties['Name']) + '</div>':''), {permanent: true, offset: [-0, -16], className: 'css_chodnkoekolgiipiargskychtajchov_18'});
+            labels.push(layer);
+            totalMarkers += 1;
+              layer.added = true;
+              addLabel(layer, i);
+              i++;
+        });
+        resetLabels([layer_Atraktivitageoturizmu2_3,layer_mzeagalrie2_5,layer_piargskyvodohospodrskychodnkzastvky_10,layer_piargskychodnkzastvky_13,layer_mzeagalrie_16,layer_chodnkoekolgiipiargskychtajchov_18]);
+        map.on("zoomend", function(){
+            resetLabels([layer_Atraktivitageoturizmu2_3,layer_mzeagalrie2_5,layer_piargskyvodohospodrskychodnkzastvky_10,layer_piargskychodnkzastvky_13,layer_mzeagalrie_16,layer_chodnkoekolgiipiargskychtajchov_18]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_Atraktivitageoturizmu2_3,layer_mzeagalrie2_5,layer_piargskyvodohospodrskychodnkzastvky_10,layer_piargskychodnkzastvky_13,layer_mzeagalrie_16,layer_chodnkoekolgiipiargskychtajchov_18]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_Atraktivitageoturizmu2_3,layer_mzeagalrie2_5,layer_piargskyvodohospodrskychodnkzastvky_10,layer_piargskychodnkzastvky_13,layer_mzeagalrie_16,layer_chodnkoekolgiipiargskychtajchov_18]);
+        });
+        </script>
+    </body>
+</html>
