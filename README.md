@@ -1,2 +1,2 @@
-# navrh-gis-geoparku
-Návrh geografického informačného systému geoparku
+# navrh-gis-geo
+Návrh geografického informačného systému ge
